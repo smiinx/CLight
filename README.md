@@ -3,11 +3,11 @@
 
 * Version 0.1.0
 
-You can:
-  Read the code of a website,
-  Encrypt & Decrypt Strings,
-  Cleanup Files,
-  and more.
+* You can:
+ * Read the code of a website,
+ * Encrypt & Decrypt Strings,
+ * Cleanup Files,
+ * and more.
 This Library gets updated regularly, where bugs will be fixed and new features will be added.
 
 ![](utils/clight.png)
@@ -30,11 +30,15 @@ _IntelliJ_
 5. Select the clight.jar
 6. Click 'OK'
 
-## Usage example
+## Usage examples
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-_For more examples and usage, please refer to the [Wiki][wiki]._
+* Reading the Website content:
+  `String websiteContent = Utils.readWebsiteContent(_WebsiteURL_ "https://google.com");`
+* Reading the content of a file:
+  `String fileContent = FileManager.getFileContent(_File_ file);`
+* Encrypting Strings: 
+  `String encrypted = Utils.encryptString(_Text to Encrypt_"Hello World!", _Key_11);`
+  _Result: spwwz…hzcwo!_
 
 ## Release History
 
