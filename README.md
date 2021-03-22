@@ -32,13 +32,13 @@ _IntelliJ_
 
 ## Usage examples
 
-* Reading the Website content:\n
-  `String websiteContent = Utils.readWebsiteContent(_WebsiteURL_ "https://google.com");`
-* Reading the content of a file:\n
-  `String fileContent = FileManager.getFileContent(_File_ file);`
-* Encrypting Strings: \n
-  `String encrypted = Utils.encryptString(_Text to Encrypt_"Hello World!", _Key_11);`\n
-  _Result: spwwz…hzcwo!_
+* Reading the Website content:
+  * `String websiteContent = Utils.readWebsiteContent(_WebsiteURL_ "https://google.com");`
+* Reading the content of a file:
+  * `String fileContent = FileManager.getFileContent(_File_ file);`
+* Encrypting Strings: 
+  * `String encrypted = Utils.encryptString(_Text to Encrypt_"Hello World!", _Key_11);`
+  * _Result: spwwz…hzcwo!_
 
 ## Release History
 
