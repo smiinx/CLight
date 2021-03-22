@@ -1,9 +1,7 @@
 # CLight
 > CLight is a Java library, with some useful features.
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
+* Version 0.1.0
 
 You can:
   Read the code of a website,
