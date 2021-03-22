@@ -39,6 +39,10 @@ _IntelliJ_
   * `String encrypted = Utils.encryptString("Hello World!", 11);`
   * _Result: spwwz…hzcwo!_
 
+## Dependencies
+
+* For the 'Minecraft/Bukkit' interface, you need to download craftbukkit. You can download it [here][https://cdn.getbukkit.org/craftbukkit/craftbukkit-1.12.2.jar]. Then, you need to add it to your Build Path.
+
 ## Release History
 
 * 0.1.0
