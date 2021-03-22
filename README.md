@@ -33,11 +33,11 @@ _IntelliJ_
 ## Usage examples
 
 * Reading the Website content:
-  * `String websiteContent = Utils.readWebsiteContent(_WebsiteURL_ "https://google.com");`
+  * `String websiteContent = Utils.readWebsiteContent("https://google.com");`
 * Reading the content of a file:
-  * `String fileContent = FileManager.getFileContent(_File_ file);`
+  * `String fileContent = FileManager.getFileContent(file);`
 * Encrypting Strings: 
-  * `String encrypted = Utils.encryptString(_Text to Encrypt_"Hello World!", _Key_11);`
+  * `String encrypted = Utils.encryptString("Hello World!", 11);`
   * _Result: spwwz…hzcwo!_
 
 ## Release History
