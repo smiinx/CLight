@@ -196,7 +196,6 @@ public interface CLight {
 			if(newFile.exists()) {
 				newFile.delete();
 			}
-			
 			readed = readed.replaceAll("\n", "");
 			readed = readed.replaceAll("	", "");
 			
@@ -284,7 +283,8 @@ public interface CLight {
 		}
 		public static String encryptString(String str, int key) {
 			if(key > 25) {
-				System.out.println("Key may not be larger than 25.");
+				String crashlog = "Key may not be larger than 25";
+				throw new IndexOutOfBoundsException(crashlog);
 			}else {
 				str = str.toLowerCase();
 				String[] stralphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -323,6 +323,10 @@ public interface CLight {
 			return str.toLowerCase();
 		}
 		public static String decryptString(String str, int key) {
+			if(key > 25) {
+				String crashlog = "Key may not be larger than 25";
+				throw new IndexOutOfBoundsException(crashlog);
+			}else {
 			str = str.toLowerCase();
 			String[] stralphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 			char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ø', 'ƒ', '§', 'á', '%', 'Ñ', '®', '«', '»', '©', '╣', '¬', '”', '┬', '£', 'ﬁ', '╚', '˜', '·', '¯', '¤', '˙', 'ð', 'Ð', 'Ê', '▄', '¶', 'Ø', 'ƒ', '§', 'á', '%', 'Ñ', '®', '«', '»', '©', '╣', '¬', '”', '┬', '£', 'ﬁ', '╚', '˜', '·', '¯', '¤', '˙', 'ð', 'Ð', 'Ê', '▄', '¶'};
@@ -372,6 +376,7 @@ public interface CLight {
 			str = str.replace('⌃', '	');
 			str = str.replace('√', '	');
 			return str.toLowerCase();
+			}
 		}
 		public static String readWebsiteContent(String URL) throws IOException {
 			String output = "";
