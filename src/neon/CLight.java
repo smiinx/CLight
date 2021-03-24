@@ -4,12 +4,17 @@ import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
@@ -40,14 +45,14 @@ public interface CLight {
 	 * @author zNeon
 	 */
 	public static interface Minecraft{
-		public static class Bukkit{
-			public static void stopServer(){
+		public static class Bukkit {
+			public static void stopServer() {
 				org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), "stop");
 			}
-			public static void executeConsoleCommand(String command){
+			public static void executeConsoleCommand(String command) {
 				org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
 			}
-			public static void executeCommand(CommandSender sender, String command){
+			public static void executeCommand(CommandSender sender, String command) {
 				org.bukkit.Bukkit.dispatchCommand(sender, command);
 			}
 		}
@@ -163,6 +168,28 @@ public interface CLight {
 	 * @author zNeon
 	 */
 	public static class FileManager{
+		public static void downloadFile(String link, File output) throws IOException {
+			URL url = new URL(link);
+			HttpURLConnection http = (HttpURLConnection) url.openConnection();
+			double fileSize = (double) http.getContentLengthLong();
+			BufferedInputStream in = new BufferedInputStream(http.getInputStream());
+			FileOutputStream fos = new FileOutputStream(output);
+			BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
+			byte[] buffer = new byte[1024];
+			double downloaded = 0.00;
+			int read = 0;
+			double percentDownloaded = 0.00;
+			while((read = in.read(buffer, 0, 1024)) >= 0) {
+				bout.write(buffer, 0, read);
+				downloaded += read;
+				percentDownloaded = (downloaded*100)/fileSize;
+				String percent = String.format("%.4f", percentDownloaded);
+				System.out.println("Downloaded " + percent + "% of the file.");
+			}
+			bout.close();
+			in.close();
+			System.out.println("Download complete.");
+		}
 		public static String getHomeDirectory() {
 			String output = System.getProperty("user.home");
 			return output;
@@ -196,13 +223,12 @@ public interface CLight {
 			if(newFile.exists()) {
 				newFile.delete();
 			}
-			
 			readed = readed.replaceAll("\n", "");
 			readed = readed.replaceAll("	", "");
-			
+
 			int index = readed.indexOf(" ");
 			char charSpace = readed.charAt(index);
-			
+
 			for(int i = 0; i < readed.length(); i++) {
 				char c = readed.charAt(i);
 				String stringSpace = Character.toString(c);
@@ -263,14 +289,14 @@ public interface CLight {
 						readed = readed.replaceAll(stringSpace, "");
 					}
 				}
-				
-				
+
+
 			}
 			BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
 			writer.write(readed);
 			writer.close();
 		}
-		
+
 	}
 	/**
 	 * Other stuff, that doesn't have a special category.
@@ -284,7 +310,8 @@ public interface CLight {
 		}
 		public static String encryptString(String str, int key) {
 			if(key > 25) {
-				System.out.println("Key may not be larger than 25.");
+				String crashlog = "Key may not be larger than 25";
+				throw new IndexOutOfBoundsException(crashlog);
 			}else {
 				str = str.toLowerCase();
 				String[] stralphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -323,55 +350,60 @@ public interface CLight {
 			return str.toLowerCase();
 		}
 		public static String decryptString(String str, int key) {
-			str = str.toLowerCase();
-			String[] stralphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
-			char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ø', 'ƒ', '§', 'á', '%', 'Ñ', '®', '«', '»', '©', '╣', '¬', '”', '┬', '£', 'ﬁ', '╚', '˜', '·', '¯', '¤', '˙', 'ð', 'Ð', 'Ê', '▄', '¶', 'Ø', 'ƒ', '§', 'á', '%', 'Ñ', '®', '«', '»', '©', '╣', '¬', '”', '┬', '£', 'ﬁ', '╚', '˜', '·', '¯', '¤', '˙', 'ð', 'Ð', 'Ê', '▄', '¶'};
-			key++;
-			str = str.replace('a', alphabet[27 - key]);
-			str = str.replace('b', alphabet[28 - key]);
-			str = str.replace('c', alphabet[29 - key]);
-			str = str.replace('d', alphabet[30 - key]);
-			str = str.replace('e', alphabet[31 - key]);
-			str = str.replace('f', alphabet[32 - key]);
-			str = str.replace('g', alphabet[33 - key]);
-			str = str.replace('h', alphabet[34 - key]);
-			str = str.replace('i', alphabet[35 - key]);
-			str = str.replace('j', alphabet[36 - key]);
-			str = str.replace('k', alphabet[37 - key]);
-			str = str.replace('l', alphabet[38 - key]);
-			str = str.replace('m', alphabet[39 - key]);
-			str = str.replace('n', alphabet[40 - key]);
-			str = str.replace('o', alphabet[41 - key]);
-			str = str.replace('p', alphabet[42 - key]);
-			str = str.replace('q', alphabet[43 - key]);
-			str = str.replace('r', alphabet[44 - key]);
-			str = str.replace('s', alphabet[45 - key]);
-			str = str.replace('t', alphabet[46 - key]);
-			str = str.replace('u', alphabet[47 - key]);
-			str = str.replace('v', alphabet[48 - key]);
-			str = str.replace('w', alphabet[49 - key]);
-			str = str.replace('x', alphabet[50 - key]);
-			str = str.replace('y', alphabet[51 - key]);
-			str = str.replace('z', alphabet[52 - key]);
-			str = str.replace('!', alphabet[53 - key]);
-			str = str.replace('§', alphabet[55 - key]);
-			str = str.replace('$', alphabet[56 - key]);
-			str = str.replace('%', alphabet[57 - key]);
-			str = str.replace('@', alphabet[62 - key]);
-			str = str.replace('¬', alphabet[64 - key]);
-			str = str.replace('”', alphabet[65 - key]);
-			str = str.replace('#', alphabet[66 - key]);
-			str = str.replace('£', alphabet[67 - key]);
-			str = str.replace('ﬁ', alphabet[68 - key]);
-			str = str.replace('˜', alphabet[70 - key]);
-			str = str.replace('·', alphabet[71 - key]);
-			str = str.replace('¯', alphabet[72 - key]);
-			str = str.replace('˙', alphabet[73 - key]);
-			str = str.replace('˙', alphabet[75 - key]);
-			str = str.replace('…', ' ');
-			str = str.replace('⌃', '	');
-			str = str.replace('√', '	');
-			return str.toLowerCase();
+			if(key > 25) {
+				String crashlog = "Key may not be larger than 25";
+				throw new IndexOutOfBoundsException(crashlog);
+			}else {
+				str = str.toLowerCase();
+				String[] stralphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+				char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ø', 'ƒ', '§', 'á', '%', 'Ñ', '®', '«', '»', '©', '╣', '¬', '”', '┬', '£', 'ﬁ', '╚', '˜', '·', '¯', '¤', '˙', 'ð', 'Ð', 'Ê', '▄', '¶', 'Ø', 'ƒ', '§', 'á', '%', 'Ñ', '®', '«', '»', '©', '╣', '¬', '”', '┬', '£', 'ﬁ', '╚', '˜', '·', '¯', '¤', '˙', 'ð', 'Ð', 'Ê', '▄', '¶'};
+				key++;
+				str = str.replace('a', alphabet[27 - key]);
+				str = str.replace('b', alphabet[28 - key]);
+				str = str.replace('c', alphabet[29 - key]);
+				str = str.replace('d', alphabet[30 - key]);
+				str = str.replace('e', alphabet[31 - key]);
+				str = str.replace('f', alphabet[32 - key]);
+				str = str.replace('g', alphabet[33 - key]);
+				str = str.replace('h', alphabet[34 - key]);
+				str = str.replace('i', alphabet[35 - key]);
+				str = str.replace('j', alphabet[36 - key]);
+				str = str.replace('k', alphabet[37 - key]);
+				str = str.replace('l', alphabet[38 - key]);
+				str = str.replace('m', alphabet[39 - key]);
+				str = str.replace('n', alphabet[40 - key]);
+				str = str.replace('o', alphabet[41 - key]);
+				str = str.replace('p', alphabet[42 - key]);
+				str = str.replace('q', alphabet[43 - key]);
+				str = str.replace('r', alphabet[44 - key]);
+				str = str.replace('s', alphabet[45 - key]);
+				str = str.replace('t', alphabet[46 - key]);
+				str = str.replace('u', alphabet[47 - key]);
+				str = str.replace('v', alphabet[48 - key]);
+				str = str.replace('w', alphabet[49 - key]);
+				str = str.replace('x', alphabet[50 - key]);
+				str = str.replace('y', alphabet[51 - key]);
+				str = str.replace('z', alphabet[52 - key]);
+				str = str.replace('!', alphabet[53 - key]);
+				str = str.replace('§', alphabet[55 - key]);
+				str = str.replace('$', alphabet[56 - key]);
+				str = str.replace('%', alphabet[57 - key]);
+				str = str.replace('@', alphabet[62 - key]);
+				str = str.replace('¬', alphabet[64 - key]);
+				str = str.replace('”', alphabet[65 - key]);
+				str = str.replace('#', alphabet[66 - key]);
+				str = str.replace('£', alphabet[67 - key]);
+				str = str.replace('ﬁ', alphabet[68 - key]);
+				str = str.replace('˜', alphabet[70 - key]);
+				str = str.replace('·', alphabet[71 - key]);
+				str = str.replace('¯', alphabet[72 - key]);
+				str = str.replace('˙', alphabet[73 - key]);
+				str = str.replace('˙', alphabet[75 - key]);
+				str = str.replace('…', ' ');
+				str = str.replace('⌃', '	');
+				str = str.replace('√', '	');
+				return str.toLowerCase();
+			}
 		}
 		public static String readWebsiteContent(String URL) throws IOException {
 			String output = "";
@@ -392,11 +424,11 @@ public interface CLight {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
-			
-		}
-		
 
-		
+		}
+
+
+
 	}
 	/**
 	 * Things with Math.
