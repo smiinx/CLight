@@ -1,6 +1,5 @@
 # CLight
 > CLight is a Java library, with some useful features.
-Version 0.1.0
 
 * You can:
  * Read the code of a website,
@@ -47,3 +46,6 @@ _IntelliJ_
 
 * 0.1.0
     * The first GitHub release.
+* 0.1.1
+    * UPDATE: _Throwing Exceptions at Decrypting and Enrypting_
+    * ADDITION: _Added download feature_
