@@ -8,6 +8,8 @@
  * and more.
 This Library gets updated regularly, where bugs will be fixed and new features will be added.
 
+Disclaimer: CLight is completely free to use and doesnt require any permission from it's owner to use.
+
 ![](utils/clight.png)
 
 ## Installation
