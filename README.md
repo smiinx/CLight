@@ -40,7 +40,7 @@ _IntelliJ_
 
 ## Dependencies
 
-* For the 'Minecraft/Bukkit' interface, you need to download craftbukkit. You can download it [here](https://cdn.getbukkit.org/craftbukkit/craftbukkit-1.12.2.jar). Then, you need to add it to your Build Path.
+* For the 'Minecraft/Bukkit' interface, you need to download craftbukkit. You can download it [here](https://cdn.getbukkit.org/craftbukkit/craftbukkit-1.12.2.jar). Then you need to add it to your Build Path.
 
 ## Release History
 
